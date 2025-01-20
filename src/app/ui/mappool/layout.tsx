@@ -14,7 +14,7 @@ export default function MappoolLayout({
   return (
     <html lang="en">
       <body
-        className={''}
+        className={`h-screen w-screen`}
       >
         {children}
       </body>
