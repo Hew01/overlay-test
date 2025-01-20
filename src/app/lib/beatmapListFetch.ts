@@ -1,5 +1,6 @@
-import axios from "axios";
+import path from "path";
 import { beatmapDetailFetch } from "./beatmapDetailFetch";
+import fsPromises from 'fs/promises';
 interface beatmapDetails {
     beatmapId: number;
     mods: string;
@@ -23,8 +24,9 @@ interface beatmap {
 }
 export async function beatmapListFetch() {
     try {
-        const response = await axios.get('../data/beatmaps.json');
-        const beatmapData: beatmap[] = response.data;
+        const filePath = path.join(process.cwd(), './src/app/data/beatmaps.json');
+        const response = await fsPromises.readFile(filePath);
+        const beatmapData: beatmap[] = JSON.parse(response.toString());
         const beatmapList: beatmapDetails[] = await Promise.all(beatmapData.map(async (data) => ({
             ...data,
             beatmapDetails: await beatmapDetailFetch(data.beatmapId),

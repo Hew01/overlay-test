@@ -1,11 +1,26 @@
 import { LegacyClient } from "osu-web.js";
 import { errorHandling } from "./errorHandling";
 
-export async function beatmapDetailFetch(id: number) {
-    const LegacyApi = new LegacyClient(process.env.OSU_API_KEY as string );
+export async function beatmapDetailFetch(beatmapId: number): Promise<
+  | {
+      set_id: number;
+      artist: string;
+      title: string;
+      diff_name: string;
+      star_rating: number;
+      bpm: number;
+      drain: number;
+      cs: number;
+      ar: number;
+      od: number;
+      length: number;
+    }
+  | undefined
+> {
+  const LegacyApi = new LegacyClient(process.env.OSU_API_KEY as string);
   try {
     const beatmapDetail = await LegacyApi.getBeatmaps({
-      b: id,
+      b: beatmapId,
     });
     return {
       set_id: beatmapDetail[0].beatmapset_id,
@@ -19,9 +34,8 @@ export async function beatmapDetailFetch(id: number) {
       ar: beatmapDetail[0].diff_approach,
       od: beatmapDetail[0].diff_overall,
       length: beatmapDetail[0].total_length,
-    }
+    };
   } catch (error) {
     errorHandling(error);
   }
-  
 }

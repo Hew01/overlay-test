@@ -1,16 +1,54 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Baloo_2 } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const Torus = localFont({
+  src: [
+    {
+        path: 'fonts/TorusRegular.otf',
+        weight: '400',
+        style: 'normal',
+    },
+    {
+        path: 'fonts/TorusBold.otf',
+        weight: '500',
+        style: 'normal',
+    },
+    {
+        path: 'fonts/TorusHeavy.otf',
+        weight: '700',
+        style: 'normal',
+    },
+    {
+        path: 'fonts/TorusLight.otf',
+        weight: '300',
+        style: 'normal',
+    },
+    {
+        path: 'fonts/TorusThin.otf',
+        weight: '200',
+        style: 'normal',
+    },
+    {
+        path: 'fonts/TorusBold.otf',
+        weight: '600',
+        style: 'normal',
+    },
+    {
+        path: 'fonts/TorusSemiBold.otf',
+        weight: '600',
+        style: 'normal',
+    },
+  ],
+  variable: "--font-torus",
+});
+
+const Baloo = Baloo_2({
+  variable: "--font-baloo",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,8 +63,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${Baloo.variable} ${Torus.variable} antialiased`}
+        >
         {children}
       </body>
     </html>
